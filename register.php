@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             "message" => "빈 항목이 존재합니다."
         ));
     } else {
-
         $query = "select*from users where email='$email'";
         $query1 = "select*from users where email='$nick'";
 

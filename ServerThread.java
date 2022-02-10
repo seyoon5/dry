@@ -1,83 +1,89 @@
-import java.io.*;
-import java.net.Socket;
-import java.util.ArrayList;
+// import java.io.*;
+// import java.net.Socket;
+// import java.util.ArrayList;
+// import java.util.Vector;
 
-public class ServerThread implements Runnable {
+// public class ServerThread extends Thread {
 
-    public static ArrayList<ServerThread> threads = new ArrayList<>();
-    private Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
-    private String nick;
-    private String username;
+//     // public static Vector<Room> threads = new ArrayList<>();
+//     private Socket socket;
+//     private BufferedReader in;
+//     private BufferedWriter out;
 
-    public ServerThread(Socket socket) {
-        try {
-            this.socket = socket;
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.nick = bufferedReader.readLine();
-            this.username = bufferedReader.readLine();
-            System.out.println("nick: " + nick);
-            System.out.println("username: " + username);
-            threads.add(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//     Room myRoom;
+//     Vector<Room> roomV;
 
-    @Override
-    public void run() {
+//     public ServerThread(Socket socket, Server server) {
+//         this.roomV = server.roomV;
+//         this.socket = socket;
+//         try {
+//             this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+//             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-        String messageFromClient;
+//             start();
 
-        while (socket.isConnected()) {
-            try {
-                messageFromClient = bufferedReader.readLine();
-                broadcastMessage(messageFromClient);
-            } catch (IOException e) {
-                closeEverything(socket, bufferedReader, bufferedWriter);
-                break;
-            }
-        }
-    }
-    // if (!serverThread.nick.equals(serverThread.username)) //
-    // !clientHandler.clientUsername.equals(clientUsername)
+//         } catch (IOException e) {
+//             e.printStackTrace();
+//         }
+//     }
 
-    public void broadcastMessage(String messageToSend) {
-        System.out.println("broadcastMessage() " + messageToSend);
-        for (ServerThread serverThread : threads) {
-            try {
-                if(!serverThread.nick.equals(nick)){
-                serverThread.bufferedWriter.write(messageToSend);
-                serverThread.bufferedWriter.newLine();
-                serverThread.bufferedWriter.flush();
-            }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//     @Override
+//     public void run() {
 
-    public void removeClientHandler() {
-        threads.remove(this);
-        broadcastMessage("대화종료");
-    }
+//         String msg;
 
-    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
-        removeClientHandler();
-        try {
-            if (bufferedReader != null) {
-                bufferedReader.close();
-            }
-            if (bufferedWriter != null) {
-                bufferedWriter.close();
-            }
-            if (socket != null) {
-                socket.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
+//         while (socket.isConnected()) {
+//             myRoom = new Room();
+//             roomV.add(myRoom);
+//             myRoom.userV.add(this);
+//             try {
+//                 msg = in.readLine();
+//                 if (msg == null) {
+//                     return;
+//                 }
+//                 System.out.println("들어온 메세지 :" + msg);
+//                 messageRoom(msg);
+//             } catch (IOException e) {
+//                 e.printStackTrace();
+//                 System.out.println("서버 소켓 연결 끊김");
+//                 break;
+//             }
+//         }
+//     }
+
+//     // if (!serverThread.nick.equals(serverThread.username)) //
+//     // !clientHandler.clientUsername.equals(clientUsername)
+//     public void messageRoom(String msg) {
+
+//         for (int i = 0; i < myRoom.userV.size(); i++) {
+//             ServerThread serverThread = myRoom.userV.get(i);
+//             try {
+//                 serverThread.out.write(msg);
+//                 serverThread.out.newLine();
+//                 serverThread.out.flush();
+//             } catch (IOException e) {
+//                 e.printStackTrace();
+//                 myRoom.userV.remove(i--);
+//                 System.out.println("클라이언트 접속 끊김");
+//             }
+//         }
+
+//     }
+
+//     // public void closeEverything(Socket socket, BufferedReader bufferedReader,
+//     // BufferedWriter bufferedWriter) {
+//     // try {
+//     // if (bufferedReader != null) {
+//     // bufferedReader.close();
+//     // }
+//     // if (bufferedWriter != null) {
+//     // bufferedWriter.close();
+//     // }
+//     // if (socket != null) {
+//     // socket.close();
+//     // }
+//     // } catch (IOException e) {
+//     // e.printStackTrace();
+//     // }
+//     // }
+// }
