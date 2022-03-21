@@ -6,8 +6,9 @@ ini_set("display_errors", 1);
 
 $host = 'dry3.cwtqfevqzd7m.ap-northeast-2.rds.amazonaws.com';
 $user = 'root';
-$pw = '123qwe123';
+$pw = '12345678';
 $dbName = 'dry';
+//$dbName = 'dry';
 
 $con = new mysqli($host, $user, $pw, $dbName);
 

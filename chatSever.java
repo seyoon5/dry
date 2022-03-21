@@ -1,6 +1,7 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -87,7 +88,8 @@ public class chatSever {
     public void run() {
       System.out.println("MultiThread run");
       try {
-        while (true) {
+        System.out.println("read.available(): "+read.available());
+        while (read.available() >= 0) {
           String something = read.readUTF(); //// 0 receiver, 1 sender, 2 receiverProfile 3 senderProfile 4 msg
           if (something == null) {
             return;
@@ -163,7 +165,7 @@ public class chatSever {
           for (int i = 0; i < chatSever.m_OutputList.size(); i++) {
             chatSever.m_OutputList.get(i).writeUTF(roomIdx + "@" + sender + "@" + msg +
                 "@" + time + "@" + user + "@" + receiver + "@" + receiverProfile + "@" + senderProfile);
-            chatSever.m_OutputList.get(i).flush();
+            chatSever.m_OutputList.get(i).flush();            
             System.out.println("서버에서 client 로 보낸 메세지: " + roomIdx + "@" + sender + "@" +
                 msg + "@" + time + "@" + user + "@" + receiver);
           }
@@ -215,7 +217,8 @@ public class chatSever {
           // enteredUser()
         }
       } catch (Exception e) {
-        e.printStackTrace();
+        System.out.println("소켓 끊기는 곳");
+        e.printStackTrace();        
       }
     }
   }
@@ -383,7 +386,7 @@ public class chatSever {
     String driver = "com.mysql.cj.jdbc.Driver";
     String url = "jdbc:mysql://dry3.cwtqfevqzd7m.ap-northeast-2.rds.amazonaws.com:3306/dry";
     String id = "root";
-    String pwd = "123qwe123";
+    String pwd = "12345678";
     Connection con = null;
     PreparedStatement pstmt = null;
 
@@ -418,7 +421,7 @@ public class chatSever {
     String driver = "com.mysql.cj.jdbc.Driver";
     String url = "jdbc:mysql://dry3.cwtqfevqzd7m.ap-northeast-2.rds.amazonaws.com:3306/dry";
     String id = "root";
-    String pwd = "123qwe123";
+    String pwd = "12345678";
     String user = "null";
     Connection con = null;
     PreparedStatement pstmt = null;
@@ -451,7 +454,7 @@ public class chatSever {
     String driver = "com.mysql.cj.jdbc.Driver";
     String url = "jdbc:mysql://dry3.cwtqfevqzd7m.ap-northeast-2.rds.amazonaws.com:3306/dry";
     String id = "root";
-    String pwd = "123qwe123";
+    String pwd = "12345678";
     Connection con = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
@@ -567,7 +570,7 @@ public class chatSever {
     String driver = "com.mysql.cj.jdbc.Driver";
     String url = "jdbc:mysql://dry3.cwtqfevqzd7m.ap-northeast-2.rds.amazonaws.com:3306/dry";
     String id = "root";
-    String pwd = "123qwe123";
+    String pwd = "12345678";
     String roomNo = "null";
     Connection con = null;
     PreparedStatement pstmt = null;
@@ -604,7 +607,7 @@ public class chatSever {
     String driver = "com.mysql.cj.jdbc.Driver";
     String url = "jdbc:mysql://dry3.cwtqfevqzd7m.ap-northeast-2.rds.amazonaws.com:3306/dry";
     String id = "root";
-    String pwd = "123qwe123";
+    String pwd = "12345678";
     Connection con = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;

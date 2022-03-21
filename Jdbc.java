@@ -10,7 +10,7 @@ public class Jdbc {
 
     String url = "jdbc:mysql://dry3.cwtqfevqzd7m.ap-northeast-2.rds.amazonaws.com:3306/dry";
     String id = "root";
-    String pw = "123qwe123";
+    String pw = "12345678";
 
     public Jdbc() {
         try {

@@ -5,7 +5,7 @@ public class App {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://dry3.cwtqfevqzd7m.ap-northeast-2.rds.amazonaws.com:3306/dry", "root", "123qwe123");
+                    "jdbc:mysql://dry3.cwtqfevqzd7m.ap-northeast-2.rds.amazonaws.com:3306/dry", "root", "12345678");                    
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("select nick from board;");
 
